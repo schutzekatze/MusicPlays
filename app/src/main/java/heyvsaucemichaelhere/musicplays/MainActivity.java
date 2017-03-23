@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
     private int updaterPermissions = 0;
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public synchronized void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) return;
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void obtainPermissions()
+    private synchronized void obtainPermissions()
     {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
         {
@@ -148,6 +148,11 @@ public class MainActivity extends AppCompatActivity
             }
             else
                 updaterPermissions++;
+
+            if (updaterPermissions == 2)
+            {
+                SelfUpdater.checkForUpdate(this);
+            }
         }
     }
 

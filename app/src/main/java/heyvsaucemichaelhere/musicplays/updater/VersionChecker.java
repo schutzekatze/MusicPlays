@@ -1,13 +1,10 @@
 package heyvsaucemichaelhere.musicplays.updater;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.ByteBuffer;
 import java.util.Scanner;
 
 /**

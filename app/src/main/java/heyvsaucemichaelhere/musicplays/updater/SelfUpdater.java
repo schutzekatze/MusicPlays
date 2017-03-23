@@ -1,10 +1,15 @@
 package heyvsaucemichaelhere.musicplays.updater;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
+import android.support.v7.app.AlertDialog;
 
 public class SelfUpdater
 {
+    private static final String UPDATE_AVAILABLE_TITLE = "Update available";
+    private static final String UPDATE_AVAILABLE_MESSAGE = "There's an update available, do you want to download it?";
+
     public static void checkForUpdate(final Context context)
     {
         new VersionChecker() {
@@ -18,7 +23,22 @@ public class SelfUpdater
 
                     if (versionCode < result)
                     {
-                        new Installer(context).execute();
+                        new AlertDialog.Builder(context)
+                                .setTitle(UPDATE_AVAILABLE_TITLE )
+                                .setMessage(UPDATE_AVAILABLE_MESSAGE)
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+                                        new Installer(context).execute();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int which) {}
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 } catch (Exception e) {}
             }
