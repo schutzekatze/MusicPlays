@@ -154,6 +154,10 @@ public class MainActivity extends AppCompatActivity
                 SelfUpdater.checkForUpdate(this);
             }
         }
+        else
+        {
+            SelfUpdater.checkForUpdate(this);
+        }
     }
 
     @Override
