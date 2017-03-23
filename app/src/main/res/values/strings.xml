@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">/music plays</string>
-    <string name="vapor_mp3">vapor.mp3</string>
-    <string name="mystery_mp3">mystery.mp3</string>
-    <string name="vsauce_mp3">vsauce.mp3</string>
-    <string name="pick_some_gud_music">Pick some gud music:</string>
-    <string name="volume">Volume:</string>
+    <string name="app_name">/ｍｕｓｉｃ ｐｌａｙｓ</string>
+    <string name="vapor_mp3">ｖａｐｏｒ.ｍｐ3</string>
+    <string name="mystery_mp3">ｍｙｓｔｅｒｙ.ｍｐ3</string>
+    <string name="vsauce_mp3">ｖｓａｕｃｅ.ｍｐ3</string>
+    <string name="pick_some_gud_music">Ｐｉｃｋ ａ ｎｉｃｅ ｔｕｎｅ,\n ｍｙ ｄｕｄｅ:</string>
+    <string name="volume">Ｖｏｌｕｍｅ:</string>
 </resources>

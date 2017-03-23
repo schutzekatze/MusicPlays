@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="heyvsaucemichaelhere.musicplays.MainActivity"
+    android:background="@drawable/vapor_wallpaper"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_margin="8dp">
+    android:padding="8dp"
+    tools:context="heyvsaucemichaelhere.musicplays.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/pick_some_gud_music" />
+        android:text="@string/pick_some_gud_music"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -22,34 +26,41 @@
             android:id="@+id/vsauce_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vsauce_mp3" />
+            android:text="@string/vsauce_mp3"
+            android:textSize="16sp"/>
 
         <RadioButton
             android:id="@+id/mystery_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mystery_mp3" />
+            android:text="@string/mystery_mp3"
+            android:textSize="16sp"/>
 
         <RadioButton
             android:id="@+id/vapor_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vapor_mp3" />
+            android:text="@string/vapor_mp3"
+            android:textSize="16sp"/>
 
     </RadioGroup>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/volume"/>
+        android:layout_marginTop="60dp"
+        android:text="@string/volume"
+        android:textSize="20sp"
+        android:scaleX="2.5"/>
 
     <SeekBar
         android:id="@+id/volume_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="100"
-        android:progress="75" />
+        android:progress="75"
+        android:layout_marginTop="20dp"
+        android:scaleY="3"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

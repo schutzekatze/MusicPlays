@@ -1,16 +1,16 @@
 package heyvsaucemichaelhere.musicplays;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity
 {
+    private Settings settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,24 +20,26 @@ public class MainActivity extends AppCompatActivity
         RadioButton vsauceButton = (RadioButton) findViewById(R.id.vsauce_radio);
         RadioButton mysteryButton = (RadioButton) findViewById(R.id.mystery_radio);
 
+        settings = Settings.getSettings(this);
+
         vaporButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.setMusicId(R.raw.vapor);
+                settings.setMusicId(R.raw.vapor);
             }
         });
 
         vsauceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.setMusicId(R.raw.vsauce);
+                settings.setMusicId(R.raw.vsauce);
             }
         });
 
         mysteryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.setMusicId(R.raw.mystery);
+                settings.setMusicId(R.raw.mystery);
             }
         });
 
@@ -45,24 +47,19 @@ public class MainActivity extends AppCompatActivity
 
         volumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Settings.setVolume((float)seekBar.getProgress() / seekBar.getMax());
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                settings.setVolume((float)seekBar.getProgress() / seekBar.getMax());
             }
         });
 
-        Settings.load(getApplicationContext());
-
-        switch(Settings.getMusicId())
+        switch(settings.getMusicId())
         {
             case R.raw.vsauce:
                 vsauceButton.setChecked(true);
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        volumeBar.setProgress((int)(volumeBar.getMax() * Settings.getVolume()));
+        volumeBar.setProgress((int)(volumeBar.getMax() * settings.getVolume()));
 
         Intent serviceIntent = new Intent(this, MusicService.class);
         startService(serviceIntent);
@@ -83,8 +80,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        Settings.save(getApplicationContext());
-
+        settings.save();
         super.onDestroy();
     }
 }
