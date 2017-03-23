@@ -3,9 +3,11 @@ package heyvsaucemichaelhere.musicplays.updater;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 
 import java.io.BufferedInputStream;
@@ -39,7 +41,14 @@ public class Installer extends AsyncTask<Void, Integer, Void>
         progressDialog.setTitle(PROGRESS_TITLE);
         progressDialog.setMessage(PROGRESS_MESSAGE);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setProgressDrawable(context.getDrawable(android.R.drawable.progress_horizontal));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            progressDialog.setProgressDrawable(context.getDrawable(android.R.drawable.progress_horizontal));
+        }
+        else
+        {
+            progressDialog.setProgressDrawable(context.getResources().getDrawable(android.R.drawable.progress_horizontal));
+        }
         progressDialog.setIndeterminate(false);
         progressDialog.show();
     }
