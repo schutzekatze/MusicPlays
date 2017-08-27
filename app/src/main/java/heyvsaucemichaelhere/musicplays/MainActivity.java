@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        switch(settings.getMusicId())
-        {
+        switch (settings.getMusicId()) {
             case R.raw.vsauce:
                 vsauceButton.setChecked(true);
                 break;
@@ -100,8 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) return;
 
-        switch(requestCode)
-        {
+        switch (requestCode) {
             case INTERNET_PERMISSION_CODE:
             {
                 updaterPermissions++;
@@ -114,48 +112,40 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if (updaterPermissions == 2)
-        {
+        if (updaterPermissions == 2) {
             SelfUpdater.checkForUpdate(this);
         }
     }
 
     private synchronized void obtainPermissions()
     {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-        {
-            if (checkSelfPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED)
-            {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
-                        new String[]{ Manifest.permission.RECEIVE_BOOT_COMPLETED },
+                        new String[] { Manifest.permission.RECEIVE_BOOT_COMPLETED },
                         RECEIVE_BOOT_COMPLETED_PERMISSION_CODE);
             }
 
-            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
-            {
+            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
-                        new String[]{ Manifest.permission.INTERNET},
+                        new String[] { Manifest.permission.INTERNET},
                         INTERNET_PERMISSION_CODE);
             }
             else
                 updaterPermissions++;
 
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
-                        new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
                         WRITE_EXTERNAL_STORAGE_PERMISSION_CODE);
             }
             else
                 updaterPermissions++;
 
-            if (updaterPermissions == 2)
-            {
+            if (updaterPermissions == 2) {
                 SelfUpdater.checkForUpdate(this);
             }
-        }
-        else
-        {
+        } else {
             SelfUpdater.checkForUpdate(this);
         }
     }
@@ -166,4 +156,5 @@ public class MainActivity extends AppCompatActivity
         SelfUpdater.cleanup();
         super.onDestroy();
     }
+
 }

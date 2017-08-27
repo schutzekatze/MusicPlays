@@ -13,37 +13,43 @@
         android:roundIcon="@drawable/vapor"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
             android:name=".MusicService"
+            android:label="MusicService"
+            android:enabled="true"
             android:exported="false" />
 
         <receiver
             android:name=".BootReceiver"
+            android:label="BootReceiver"
             android:enabled="true"
-            android:exported="true"
-            android:label="BootReceiver">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".MusicServiceRestarter"
+            android:label="MusicServiceRestarter"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.MusicServerDied" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

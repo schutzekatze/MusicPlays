@@ -7,8 +7,7 @@ import android.content.Intent;
 public class BootReceiver extends BroadcastReceiver
 {
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
         Intent serviceIntent = new Intent(context, MusicService.class);
         context.startService(serviceIntent);
     }

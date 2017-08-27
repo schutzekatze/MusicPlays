@@ -26,7 +26,7 @@ public abstract class VersionChecker extends AsyncTask<Void, Integer, Integer>
             URLConnection connection = url.openConnection();
             connection.connect();
 
-            try(InputStream input = new BufferedInputStream(url.openStream()); Scanner scanner = new Scanner(input))
+            try (InputStream input = new BufferedInputStream(url.openStream()); Scanner scanner = new Scanner(input))
             {
                 versionCode = Integer.parseInt(scanner.nextLine());
             }

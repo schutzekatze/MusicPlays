@@ -12,10 +12,8 @@ public class Settings
 
     private static Settings settings = null;
 
-    public static synchronized Settings getSettings(Context context)
-    {
-        if (settings == null)
-        {
+    public static synchronized Settings getSettings(Context context) {
+        if (settings == null) {
             settings = new Settings(context);
         }
 
@@ -26,16 +24,14 @@ public class Settings
     private int musicId;
     private float volume;
 
-    public Settings(Context context)
-    {
+    private Settings(Context context) {
         this.context = context;
         SharedPreferences sharedPref = context.getSharedPreferences(Settings.SHARED_PREFERENCES_NAME, context.MODE_PRIVATE);
         setMusicId(sharedPref.getInt(Settings.MUSIC_ID_KEY, R.raw.vsauce));
         setVolume(sharedPref.getFloat(Settings.VOLUME_KEY, Settings.DEFAULT_VOLUME));
     }
 
-    public synchronized void save()
-    {
+    public synchronized void save() {
         SharedPreferences sharedPref = context.getSharedPreferences(Settings.SHARED_PREFERENCES_NAME, context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(MUSIC_ID_KEY, getMusicId());

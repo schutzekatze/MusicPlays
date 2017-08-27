@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MusicService extends Service
-{
+public class MusicService extends Service {
+
     public static final int TIMEOUT = 10000;
+    public static final String TAG = "MusicService";
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -24,32 +26,38 @@ public class MusicService extends Service
     private KeyCombinationReceiver keyCombinationReceiver;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         settings = Settings.getSettings(this);
 
-        keyCombinationReceiver = new KeyCombinationReceiver(this)
-        {
+        keyCombinationReceiver = new KeyCombinationReceiver(this) {
             @Override
-            public void onKeyCombination()
-            {
-                playVsauce();
+            public void onKeyCombination() {
+                playMusic();
             }
         };
         keyCombinationReceiver.start();
+
+        Log.d(TAG, "Music service created");
     }
 
     @Override
     public void onDestroy() {
+        Log.d(TAG, "Music service destroyed");
+
         keyCombinationReceiver.stop();
         super.onDestroy();
     }
 
-    private synchronized void playVsauce()
+    private synchronized void playMusic()
     {
-        if (playing) return;
+        Log.d(TAG, "Music play requested");
+
+        if (playing) {
+            Log.d(TAG, "Music already playing, aborting the request");
+            return;
+        }
         playing = true;
 
         final AudioManager audioManager =
@@ -69,6 +77,7 @@ public class MusicService extends Service
                 synchronized (MusicService.this)
                 {
                     playing = false;
+                    Log.d(TAG, "Music no longer playing");
                 }
             }
         }, TIMEOUT);
@@ -77,13 +86,13 @@ public class MusicService extends Service
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        Intent intent = new Intent("com.android.MusicServerDied");
+        Intent intent = new Intent();
+        intent.setAction("com.android.MusicServerDied");
         sendBroadcast(intent);
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
